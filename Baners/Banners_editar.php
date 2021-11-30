@@ -24,39 +24,16 @@
             function baners(){
                 window.location.href="./Banners_lista.php";
             }
-            function validacion(){
+            function actualizar(id){
                 var nombre=document.forma01.nombre.value;
-                var arch=document.forma01.archivo.value;
-                if(nombre&&arch!=0){
-                    document.forma01.method='post'
-                    document.forma01.action='./Funciones/banerssalva.php'
-                    document.forma01.submit();
-
-                }else{
+                if(nombre==''){
                     $('#mensaje').html('Error (Faltan campos por llenar)');
                     setTimeout("$('#mensaje').html('');",5000);
+                }else{
+                    document.forma01.method='post'
+                    document.forma01.action="Funciones/Actualiza.php?id="+id;
+                    document.forma01.submit();
                 }
-                    
-            }
-            function eliminar(id){
-                if(confirm("desea eliminarlo?")==true){
-                    $.ajax({
-                        url:'funciones/eliminar_banner.php',
-                        type: 'post',
-                        datatype:'text',
-                        data: 'id='+id,
-                        success:function(ban){
-                        if(ban==1){
-                            $('#'+id).hide();
-                        }
-                    },error: function(){
-                        alert('error archivo no encontrado');
-                    }
-                    });
-                }
-            }
-            function editar(id){
-                window.location.href="Banners_editar.php?id="+id;
             }
         </script>
         <style>
@@ -198,39 +175,28 @@
             </div>
 
         </div>
-        <button onclick="window.location.href='../Administradores/Administradores_lista.php'">Regresar al listado</button><br><br>
+        <button onclick="window.location.href='./Banners_lista.php'">Regresar al listado</button><br><br>
         Baners lista<br><br>
-        <button onclick="window.location.href='../Baners/Baners_alta.php'">Crear Banner</button>
-        <div class='fila'>
-            <div class='id'>ID</div>
-            <div class='name'>Nombre</div>
-            <div class='botones'>Botones</div>
         </div>
         <?php
             require "Funciones/conecta.php";
             $con = conecta();
-
-            $sql = "SELECT * FROM banners WHERE status=1 AND eliminado=0";
+            $id = $_REQUEST['id'];
+            $sql ="SELECT nombre FROM `banners` WHERE id=$id;";
             $res = $con->query($sql);
-            $cont =1;
-
-            while($row=$res->fetch_array()){
-                $id = $row["id"];
-                $nombre = $row["nombre"];
-                
-                echo"<div class='fila' id=$id>";
-                echo"<div class='id'>$cont</div>";
-                echo"<div class='name'>$nombre</div>";
-                echo"<div class='botones'>";
-                echo"<input type='button' value='Eliminar' onclick='eliminar($id);'>";
-                echo"<input type='button' value='Editar' onclick='editar($id);'>";
-                echo"</div>";
-                echo "</div>";
-                $cont++;
-            }
-
+            $row=$res->fetch_array();
 
         ?>
-
+        <form name='forma01' enctype="multipart/form-data">
+        <?php
+            $name=$row["nombre"];
+           echo"<input type='text' name='nombre' id='nombre' placeholder='$name' value='$name'/><br>";
+           ?>
+           <input type="file" id="archivo" name="archivo"><div id="mensajearch" style="color:#F00;font-size:16px;"></div><br><br>
+        <?php
+           echo"<input type='button' value='Guardar'onclick='actualizar($id);'>";
+           ?>
+        </form>
+        <div id="mensaje" style="color:#F00;font-size:16px;"></div>
     </body>
 </html>
