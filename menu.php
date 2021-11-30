@@ -24,7 +24,7 @@
                 window.location.href="Productos/Productos_lista.php";
             }
             function baners(){
-                window.location.href="./Baners/Baners_lista.php";
+                window.location.href="./Baners/Banners_lista.php";
             }
         </script>
         <title>Sistema de administracion</title>

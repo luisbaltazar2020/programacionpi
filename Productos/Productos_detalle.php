@@ -24,7 +24,7 @@
                 window.location.href="Productos_lista.php";
             }
             function baners(){
-                window.location.href="../Baners/Baners_alta.php";
+                window.location.href="../Baners/Banners_lista.php";
             }
             
         </script>

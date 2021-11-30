@@ -22,7 +22,7 @@
                 window.location.href="../Productos/Productos_lista.php";
             }
             function baners(){
-                window.location.href="./Baners_alta.php";
+                window.location.href="./Banners_lista.php";
             }
             function validacion(){
                 var nombre=document.forma01.nombre.value;
@@ -144,7 +144,7 @@
             </div>
 
         </div>
-        <button onclick="window.location.href='../Administradores/Administradores_lista.php'">Regresar al listado</button><br><br>
+        <button onclick="window.location.href='../Baners/Banners_lista.php'">Regresar al listado</button><br><br>
         Baners Alta<br><br>
         <form name='forma01'enctype="multipart/form-data">
         <input type="text" name="nombre" id="nombre" placeholder="Escribe el nombre"/><br><br>

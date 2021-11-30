@@ -19,6 +19,6 @@
     $sql = "INSERT INTO banners(`nombre`, `archivo`)VALUES('$nombre','$archivo_enc');";
     $res = $con->query($sql);
 
-    header("Location:../Baners_alta.php");
+    header("Location:../Banners_lista.php");
 
 ?>

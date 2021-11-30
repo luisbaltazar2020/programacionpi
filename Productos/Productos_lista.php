@@ -32,7 +32,7 @@
                 window.location.href="Productos_editar.php?id="+id;
             }
             function baners(){
-                window.location.href="../Baners/Baners_alta.php";
+                window.location.href="../Baners/Banners_lista.php";
             }
             function eliminarfila(id){
                 if(confirm("desea eliminarlo?")==true){

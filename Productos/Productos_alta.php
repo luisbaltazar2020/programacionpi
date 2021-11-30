@@ -25,7 +25,7 @@
                 window.location.href="Productos_lista.php";
             }
             function baners(){
-                window.location.href="../Baners/Baners_alta.php";
+                window.location.href="../Baners/Banners_lista.php";
             }
             function validacion(){
                 var nombre=document.forma01.nombre.value;
