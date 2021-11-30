@@ -10,7 +10,7 @@
 ?>
 <html>
     <head>
-        <script>src="../js/jquery-3.3.1.min.js"</script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
         <script>
             function bienvenido(){
                 window.location.href="../bienvenido.php";
@@ -38,11 +38,62 @@
                 }
                     
             }
+            function eliminar(id){
+                if(confirm("desea eliminarlo?")==true){
+                    $.ajax({
+                        url:'funciones/eliminar_banner.php',
+                        type: 'post',
+                        datatype:'text',
+                        data: 'id='+id,
+                        success:function(ban){
+                        if(ban==1){
+                            $('#'+id).hide();
+                        }
+                    },error: function(){
+                        alert('error archivo no encontrado');
+                    }
+                    });
+                }
+            }
         </script>
-    <style>
+        <style>
+             .fila{
+            height: 30px;
+                width: 500px;
+                border: 1px solid black;
+                text-align: center;  
+                margin-left: auto;
+                margin-right: auto;
+        }
+            .id{
+            float: left;
+            border: 1px solid black;
+            text-align:center;
+            height: 30px;
+            width:30px;
+            background-color:green;
+            }
+            .name{
+                float: left;
+            border: 1px solid black;
+            text-align:left;
+            height: 30px;
+            width: 200px;
+            background-color: lightgreen;
+            }
+            .botones{
+                float: left;
+                border: 1px solid black;
+                height: 30px;
+                width: 264px;
+                background-color: lightgreen;
+            }
+
+        </style>
+        <style>
             .menup{
                 height: 32px;
-                width:874px;
+                width: 874px;
                 border: 1px solid black;
                 margin-left: auto;
                 margin-right: auto;
@@ -146,7 +197,37 @@
         </div>
         <button onclick="window.location.href='../Administradores/Administradores_lista.php'">Regresar al listado</button><br><br>
         Baners lista<br><br>
-        <button onclick="window.location.href='../Baners/Baners_alta.php'"></button>
+        <button onclick="window.location.href='../Baners/Baners_alta.php'">Crear Banner</button>
+        <div class='fila'>
+            <div class='id'>ID</div>
+            <div class='name'>Nombre</div>
+            <div class='botones'>Botones</div>
+        </div>
+        <?php
+            require "Funciones/conecta.php";
+            $con = conecta();
+
+            $sql = "SELECT * FROM banners WHERE status=1 AND eliminado=0";
+            $res = $con->query($sql);
+            $cont =1;
+
+            while($row=$res->fetch_array()){
+                $id = $row["id"];
+                $nombre = $row["nombre"];
+                
+                echo"<div class='fila' id=$id>";
+                echo"<div class='id'>$cont</div>";
+                echo"<div class='name'>$nombre</div>";
+                echo"<div class='botones'>";
+                echo"<input type='button' value='Eliminar' onclick='eliminar($id);'>";
+                echo"<input type='button' value='Editar' onclick='editar();'>";
+                echo"</div>";
+                echo "</div>";
+                $cont++;
+            }
+
+
+        ?>
 
     </body>
 </html>
