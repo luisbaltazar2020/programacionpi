@@ -26,6 +26,9 @@
             function productos(){
                 window.location.href="../Productos/Productos_lista.php";
             }
+            function pedidos(){
+                window.location.href="../Pedidos/Pedidos_lista.php";
+            }
         </script>
         <style>
             .menup{
@@ -211,7 +214,7 @@
             </div>
 
             <div clasS='pedidos'>
-            <input type="button" class='botoni' value="Pedidos" onclick="">
+            <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
             </div>
 
             <div class='name'>Bienvenido <?php echo $name;?> </div>

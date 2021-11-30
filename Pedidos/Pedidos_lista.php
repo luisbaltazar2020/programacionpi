@@ -2,7 +2,7 @@
     session_start();
     $varsesion =$_SESSION['nombre'];
     if($varsesion==null||$varsesion==''){
-        header("Location:menu.php");
+        header("Location:Index.php");
     }
     else{
         $name = $_SESSION['nombre'];
@@ -10,8 +10,12 @@
 ?>
 <html>
     <head>
-        <script>src="../js/jquery-3.3.1.min.js"</script>
+        <title>Listado de Productos</title>
+        <script src="../js/jquery-3.3.1.min.js"></script>
         <script>
+            function cerrarsesion(){
+                window.location.href="../cerrar.php";
+            }
             function bienvenido(){
                 window.location.href="../bienvenido.php";
             }
@@ -19,33 +23,101 @@
                 window.location.href="../Administradores/Administradores_lista.php";
             }
             function productos(){
-                window.location.href="../Productos/Productos_lista.php";
+                window.location.href="Productos_lista.php";
+            }
+            function detalle(id){
+                window.location.href="Productos_detalle.php?id="+id;
+            }
+            function editar(id){
+                window.location.href="Productos_editar.php?id="+id;
             }
             function baners(){
-                window.location.href="./Banners_lista.php";
+                window.location.href="../Baners/Banners_lista.php";
             }
             function pedidos(){
                 window.location.href="../Pedidos/Pedidos_lista.php";
             }
-            function validacion(){
-                var nombre=document.forma01.nombre.value;
-                var arch=document.forma01.archivo.value;
-                if(nombre&&arch!=0){
-                    document.forma01.method='post'
-                    document.forma01.action='./Funciones/banerssalva.php'
-                    document.forma01.submit();
-
-                }else{
-                    $('#mensaje').html('Error (Faltan campos por llenar)');
-                    setTimeout("$('#mensaje').html('');",5000);
+            function eliminarfila(id){
+                if(confirm("desea eliminarlo?")==true){
+                    $.ajax({
+                        url:'Funciones/Update.php',
+                        type: 'post',
+                        datatype:'text',
+                        data: 'id='+id,
+                        success:function(ban){
+                        if(ban==1){
+                            $('#'+id).hide();
+                        }else{
+                             
+                        }
+                    },error: function(){
+                        alert('error archivo no encontrado');
+                    }//error al encontrar el archivo
+                    });
                 }
-                    
             }
         </script>
-    <style>
-            .menup{
+        <style>
+        .titulo{
+                height: 30px;
+                width: auto;
+                border: 1px solid black;
+                text-align: center;
+                background-color: lightgreen;
+            }
+        .fila{
+            height: 30px;
+                width: auto;
+                border: 1px solid black;
+                text-align: center;  
+        }
+        .id{
+            float: left;
+            border: 1px solid black;
+            text-align:center;
+            height: 30px;
+            width:30px;
+            background-color:green;
+        }
+        .Tabla{
+            height: auto;
+            width: 940px;
+            border: 1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+            background-color:lightblue;
+        }
+        .nombre{
+            float: left;
+            border: 1px solid black;
+            text-align:left;
+            height: 30px;
+            width: 200px;
+        }
+        .correo{
+            float: left;
+            border: 1px solid black;
+            text-align:center;
+            height: 30px;
+            width: 250px;
+        }
+        .rol{
+            float:left;
+            border: 1px solid black;
+            text-align:center;
+            height: 30px;
+            width: 94PX;
+        }
+        .boton{
+            float:left;
+            border:1px solid black;
+            text-align:center;
+            height: 30px;
+            width: 119px;
+        }
+        .menup{
                 height: 32px;
-                width:874px;
+                width: 874px;
                 border: 1px solid black;
                 margin-left: auto;
                 margin-right: auto;
@@ -115,9 +187,9 @@
                 border: 1px solid black;
                 margin-right:10px;
             }
-        </style>
-
+        </style> 
     </head>
+    
     <body>
     <div class='Menup'>
             <div class='Inicio'>
@@ -145,15 +217,8 @@
             <div class='cerrar'>
             <input type="button" class='boton' value="Cerrar sesion" onclick="cerrarsesion();">
             </div>
-
-        </div>
-        <button onclick="window.location.href='../Baners/Banners_lista.php'">Regresar al listado</button><br><br>
-        Baners Alta<br><br>
-        <form name='forma01'enctype="multipart/form-data">
-        <input type="text" name="nombre" id="nombre" placeholder="Escribe el nombre"/><br><br>
-        <input type="file" id="archivo" name="archivo"><div id="mensajearch" style="color:#F00;font-size:16px;"></div><br><br>
-        <input type="button" value="Guardar"onclick="validacion();">
-        <div id="mensaje" style="color:#F00;font-size:16px;"></div>
-        </form>
+        </div><br>
+        Lista Pedidos
+        <br><br><button onclick="window.location.href='../menu.php'">Regresar al menu</button><br><br>
     </body>
 </html>

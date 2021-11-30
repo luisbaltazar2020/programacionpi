@@ -24,6 +24,9 @@
             function baners(){
                 window.location.href="./Banners_lista.php";
             }
+            function pedidos(){
+                window.location.href="../Pedidos/Pedidos_lista.php";
+            }
             function validacion(){
                 var nombre=document.forma01.nombre.value;
                 var arch=document.forma01.archivo.value;

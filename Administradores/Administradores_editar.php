@@ -97,6 +97,9 @@
             function baners(){
                 window.location.href="../Baners/Banners_lista.php";
             }
+            function pedidos(){
+                window.location.href="../Pedidos/Pedidos_lista.php";
+            }
             function validacion(id){
                 var nombre=document.forma01.nombre.value;
                 var apellidos=document.forma01.apellidos.value;
@@ -148,7 +151,7 @@
             </div>
 
             <div clasS='pedidos'>
-            <input type="button" class='botoni' value="Pedidos" onclick="">
+            <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
             </div>
 
             <div class='nombre'>Bienvenido <?php echo $name;?> </div>

@@ -54,6 +54,9 @@
             function editar(id){
                 window.location.href="Administradores_editar.php?id="+id;
             }
+            function pedidos(){
+                window.location.href="../Pedidos/Pedidos_lista.php";
+            }
 
         </script>
          
@@ -209,7 +212,7 @@
             </div>
 
             <div clasS='pedidos'>
-            <input type="button" class='botoni' value="Pedidos" onclick="">
+            <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
             </div>
 
             <div class='nombre'>Bienvenido <?php echo $name;?> </div>

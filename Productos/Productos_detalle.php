@@ -26,6 +26,9 @@
             function baners(){
                 window.location.href="../Baners/Banners_lista.php";
             }
+            function pedidos(){
+                window.location.href="../Pedidos/Pedidos_lista.php";
+            }
             
         </script>
         <style>
@@ -212,7 +215,7 @@
             </div>
 
             <div clasS='pedidos'>
-            <input type="button" class='botoni' value="Pedidos" onclick="">
+            <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
             </div>
 
             <div class='name'>Bienvenido <?php echo $name;?> </div>

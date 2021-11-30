@@ -34,6 +34,9 @@
             function baners(){
                 window.location.href="../Baners/Banners_lista.php";
             }
+            function pedidos(){
+                window.location.href="../Pedidos/Pedidos_lista.php";
+            }
             function eliminarfila(id){
                 if(confirm("desea eliminarlo?")==true){
                     $.ajax({
