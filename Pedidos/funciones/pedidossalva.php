@@ -28,21 +28,19 @@
         if($row['status']==0)
             $cont++;
     }
-    
     if($cont==0){
         $sql = "INSERT INTO `pedidos`(`fecha`, `usuario`) VALUES ('$fecha','$name')";
         $res = $con->query($sql);
-        $sqla = "SELECT * FROM `pedidos` WHERE usuario='$name'";
+        $sqla = "SELECT * FROM `pedidos` WHERE usuario='$name' and status=0";
         $resa = $con->query($sqla);
         $row=$resa->fetch_array();
         $idpedido=$row['id'];
-        $sql="INSERT INTO `pedidos_productos`(`id_pedido`, `id_producto`, `cantidad`, `precio`) 
-        VALUES ($idpedido,$idprod,$cantidad,$costo)";
-        $res = $con->query($sql);
+        $sqls="INSERT INTO `pedidos_productos`(`id_pedido`, `id_producto`, `cantidad`, `precio`) VALUES ($idpedido,$idprod,$cantidad,$costo)";
+        $resss = $con->query($sqls);
     }
     else{
         //validar si tenemos algun producto repetido
-        $sqla = "SELECT * FROM `pedidos` WHERE usuario='$name'";
+        $sqla = "SELECT * FROM `pedidos` WHERE usuario='$name'and status=0";
         $resa = $con->query($sqla);
         $row=$resa->fetch_array();
         $idpedido=$row['id'];
