@@ -31,8 +31,21 @@
             function pedidos(){
                 window.location.href="../Pedidos/Pedidos_lista.php";
             }
-            function detalle(id){
-                window.location.href="../Pedidos/Pedidos_detalle.php?id="+id;
+            function validacion(id){
+                var fecha=document.forma01.fecha.value;
+                var cantidad=document.forma01.cantidad.value;
+                if(id&&cantidad&&fecha!=0){
+                    document.forma01.method='post'
+                    document.forma01.action='funciones/pedidossalva.php?idprod='+id;
+                    document.forma01.submit();
+                }
+                else{
+                    $('#mensaje').html('Error (Faltan campos por llenar)');
+                    setTimeout("$('#mensaje').html('');",5000);
+                }
+            }
+            function finalizar(){
+                window.location.href="./funciones/finalizar.php";
             }
         </script>
         <style>
@@ -45,9 +58,12 @@
             }
         .fila{
             height: 30px;
-                width: auto;
+                width: 700px;
                 border: 1px solid black;
-                text-align: center;  
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;  
+                background-color: lightgreen;
         }
         .id{
             float: left;
@@ -59,18 +75,18 @@
         }
         .Tabla{
             height: auto;
-            width: 518px;
+            width: 940px;
             border: 1px solid black;
             margin-left: auto;
             margin-right: auto;
             background-color:lightblue;
         }
-        .nombre{
+        .na{
             float: left;
             border: 1px solid black;
-            text-align:left;
+            text-align:center;
             height: 30px;
-            width: 200px;
+            width: 100px;
         }
         .correo{
             float: left;
@@ -86,12 +102,12 @@
             height: 30px;
             width: 94PX;
         }
-        .boton{
+        .botones{
             float:left;
             border:1px solid black;
             text-align:center;
             height: 30px;
-            width: 119px;
+            width: 300px;
         }
         .menup{
                 height: 32px;
@@ -134,7 +150,6 @@
                 background-color: lightgreen;
                 width: 80px;
                 height: 30px;
-                float:left;
             }
             .administradores{
                 float:left;
@@ -166,21 +181,9 @@
                 border: 1px solid black;
                 margin-right:10px;
             }
-            .usuario{
+            .botonm{
                 float:left;
-                background-color: lightgreen;
-                height: 30px;
-                width: 300px;
-                border: 1px solid black;
             }
-            .status{
-                float:left;
-                background-color: lightgreen;
-                height: 30px;
-                width: 100px;
-                border: 1px solid black;
-            }
-
         </style> 
     </head>
     
@@ -210,47 +213,48 @@
 
             <div class='cerrar'>
             <input type="button" class='boton' value="Cerrar sesion" onclick="cerrarsesion();">
+            
             </div>
         </div><br>
         <button onclick="window.location.href='../menu.php'">Regresar al menu</button><br><br>
-        <button onclick="window.location.href='./Pedidos_alta.php'" >Crear pedido</button><br>
-        Lista Pedidos
-        <div class="Tabla">
-            <div class="titulo">Listado de Productos</div>
-            <div class='fila'>
-                <div class='id'>ID</div>
-                <div class='usuario'>Usuario</div>
-                <div class='status'>Status</div>
-                <div class='botoni'>Boton</div>
-            </div>
-            <?php
-                require "Funciones/conecta.php";
-                $con = conecta();
+        Alta Pedidos
+        <div id="mensaje" style="color:#F00;font-size:16px;"></div>
+        <?php
+            require "Funciones/conecta.php";
+            $con = conecta();
+            $ida =$_SESSION['idU'];
 
-                $sql = "SELECT * FROM `pedidos` WHERE status=1";
-                $res = $con->query($sql);
-                $cont =1;
+        echo"<form name='forma01'>";
+            echo"<input type='date' name='fecha'>";
+            echo"<select name='cantidad'>";
+           echo"<option value='0' selected>Cantidad</option>";
+           for($i=1;$i<5000;$i++){
+               echo "<option value = '$i'>$i</option>";
+           }
+       echo"</select>";
+        echo"</form>";
+        $sql = "SELECT * FROM Productos WHERE status=1 AND eliminado=0";
+        $res = $con->query($sql);
+        $cont =1;
 
-                while($row=$res->fetch_array()){
-                    $id = $row["id"];
-                    $fecha = $row["fecha"];
-                    $usuario = $row["usuario"];
-                    $status = $row["status"];
-                    if($status==1){
-                        $status_txt='cerrado';
-                    }
-                    echo"<div class='fila' id=$id>";
-                    echo"<div class='id'>$cont</div>";
-                    echo"<div class='usuario'>$usuario</div>";
-                    echo"<div class='status'>$status_txt</div>";
-                    echo"<div class='botoni'>";
-                    echo"<input onclick='detalle($id);' type='submit' value='Ver detalle'/>";
-                    echo"</div>";
-                    echo "</div>";
-                    $cont++;
-                }
-            ?>
-        </div>
-
+        while($row=$res->fetch_array()){
+            $id = $row["id"];
+            $nombre = $row["nombre"];
+            $codigo = $row["codigo"];
+            $descripcion = $row["descripcion"];
+            $costo = $row["costo"];
+            echo"<div class='fila' id=$id>";
+            echo"<div class='id'>$cont</div>";
+            echo"<div class='na'>$nombre</div>";
+            echo"<div class='na'>$codigo</div>";
+            echo"<div class='rol'>$costo</div>";
+            echo"<div class='botones'>";
+           echo"<input onclick='validacion($id);' type='submit' value='Enviar' /> ";
+           echo"</div>";
+           echo "</div>";
+           $cont++;
+        }
+        ?>
+        <button onclick="finalizar();">Finalizar pedido</button>
     </body>
 </html>

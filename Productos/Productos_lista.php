@@ -209,7 +209,7 @@
             </div>
 
             <div clasS='pedidos'>
-            <input type="button" class='botoni' value="Pedidos" onclick="">
+            <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
             </div>
 
             <div class='nombre'>Bienvenido <?php echo $name;?> </div>
