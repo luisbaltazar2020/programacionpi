@@ -17,10 +17,12 @@ if($num>0){
     $idU = $row["id"];
     $nombre = $row["nombre"].' '.$row["apellidos"];
     $correo = $row["correo"];
+    $rol=$row["rol"];
     session_start();
     $_SESSION['idU']= $idU;
     $_SESSION["nombre"]=$nombre;
     $_SESSION["correo"]=$correo;
+    $_SESSION["rol"]=$rol;
 }
 echo $ban;
 ?> 

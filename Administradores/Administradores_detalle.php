@@ -246,7 +246,7 @@
             </div>
             <div class="fila2">
             <?php
-                $rol_text=($row['rol']=='1') ? "Gerente":"Ejecutivo";
+                $rol_text=($row['rol']=='1') ? "Administrador":"Usiario";
                 echo $rol_text;?>
             </div>
             <div class="fila2">

@@ -62,6 +62,9 @@
                     setTimeout("$('#mensaje').html('');",5000);
                 }
             }
+            function gotousuario(){
+                window.location.href="altausu.php";
+            }
 
         </script>
         
@@ -71,7 +74,7 @@
         error_reporting(0);
         if(session_start()!=null||session_start()!=''){
             $varsesion = $_SESSION['nombre'];
-        if($varsesion!=null||$varsesion!=''){
+        if($varsesion!=null||$varsesion!=''){//si ya
             header("Location:menu.php");
         }
         }
@@ -84,6 +87,8 @@
                 <input type="text" name="usuario" id="nombre" placeholder="Escribe tu usuario" class='Entrada'/><br><br>
                 <input type="text" name="pass" id="nombre" placeholder="Escribe tu password" class='Entrada'/><br><br>
                 <input type="button" class='boton' value="Iniciar sesion"onclick="validacion(); ">
+                <br><br>
+                <input type="button" class='boton' value="Crear cuenta" onclick="gotousuario();">
                 <div id="mensaje" style="color:#F00;font-size:16px;"></div>
             </form>
         </div>

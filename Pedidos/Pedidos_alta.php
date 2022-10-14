@@ -231,8 +231,6 @@
            for($i=1;$i<5000;$i++){
                echo "<option value = '$i'>$i</option>";
            }
-       echo"</select>";
-        echo"</form>";
         $sql = "SELECT * FROM Productos WHERE status=1 AND eliminado=0";
         $res = $con->query($sql);
         $cont =1;
