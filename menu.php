@@ -130,9 +130,19 @@
             <input type="button" class='botonp' value="Productos" onclick="productos();">
             </div>
 
-            <div class='baners'>
-            <input type="button" class='botoni' value="Baners" onclick="baners();">
-            </div>
+            <?php
+            if($_SESSION['rol']==1){
+                echo" <div class='baners'>
+                <input type='button' class='botoni' value='Baners' onclick='baners();'>
+                </div>";
+            }
+            else{
+                echo" <div class='baners'>
+                <input type='button' class='botoni'>
+                </div>";
+            }
+            ?>
+            
 
             <div clasS='pedidos'>
             <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">

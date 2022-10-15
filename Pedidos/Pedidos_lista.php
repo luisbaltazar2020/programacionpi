@@ -206,9 +206,18 @@
             <input type="button" class='botonp' value="Productos" onclick="productos();">
             </div>
 
-            <div class='baners'>
-            <input type="button" class='botoni' value="Baners" onclick="baners();">
-            </div>
+            <?php
+            if($_SESSION['rol']==1){
+                echo" <div class='baners'>
+                <input type='button' class='botoni' value='Baners' onclick='baners();'>
+                </div>";
+            }
+            else{
+                echo" <div class='baners'>
+                <input type='button' class='botoni'>
+                </div>";
+            }
+            ?>
 
             <div clasS='pedidos'>
             <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
@@ -234,29 +243,59 @@
             <?php
                 require "Funciones/conecta.php";
                 $con = conecta();
+                if($_SESSION['rol']==1){
+                    $sql = "SELECT * FROM `pedidos` WHERE status=1";
+                    $res = $con->query($sql);
+                    $cont =1;
 
-                $sql = "SELECT * FROM `pedidos` WHERE status=1";
-                $res = $con->query($sql);
-                $cont =1;
-
-                while($row=$res->fetch_array()){
-                    $id = $row["id"];
-                    $fecha = $row["fecha"];
-                    $usuario = $row["usuario"];
-                    $status = $row["status"];
-                    if($status==1){
-                        $status_txt='cerrado';
+                    while($row=$res->fetch_array()){
+                        $id = $row["id"];
+                        $fecha = $row["fecha"];
+                        $usuario = $row["usuario"];
+                        $status = $row["status"];
+                        if($status==1){
+                            $status_txt='cerrado';
+                        }
+                        echo"<div class='fila' id=$id>";
+                        echo"<div class='id'>$cont</div>";
+                        echo"<div class='usuario'>$usuario</div>";
+                        echo"<div class='status'>$status_txt</div>";
+                        echo"<div class='botoni'>";
+                        echo"<input onclick='detalle($id);' type='submit' value='Ver detalle'/>";
+                        echo"</div>";
+                        echo "</div>";
+                        $cont++;
                     }
-                    echo"<div class='fila' id=$id>";
-                    echo"<div class='id'>$cont</div>";
-                    echo"<div class='usuario'>$usuario</div>";
-                    echo"<div class='status'>$status_txt</div>";
-                    echo"<div class='botoni'>";
-                    echo"<input onclick='detalle($id);' type='submit' value='Ver detalle'/>";
-                    echo"</div>";
-                    echo "</div>";
-                    $cont++;
                 }
+                else{
+                    $sql = "SELECT * FROM `pedidos` WHERE 1 and usuario='$name'";
+                    $res = $con->query($sql);
+                    $cont =1;
+
+                    while($row=$res->fetch_array()){
+                        $id = $row["id"];
+                        $fecha = $row["fecha"];
+                        $usuario = $row["usuario"];
+                        $status = $row["status"];
+                        if($status==1){
+                            $status_txt='Cerrado';
+                        }
+                        if($status==0){
+                            $status_txt='Abierto';
+                        }
+                        echo"<div class='fila' id=$id>";
+                        echo"<div class='id'>$cont</div>";
+                        echo"<div class='usuario'>$usuario</div>";
+                        echo"<div class='status'>$status_txt</div>";
+                        echo"<div class='botoni'>";
+                        echo"<input onclick='detalle($id);' type='submit' value='Ver detalle'/>";
+                        echo"</div>";
+                        echo "</div>";
+                        $cont++;
+                    }
+                }
+
+                
             ?>
         </div>
 

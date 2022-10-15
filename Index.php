@@ -85,7 +85,7 @@
             <div id="mensajenuevo" style="color:#F00;font-size:16px;"></div>
             <form name="Inicio">
                 <input type="text" name="usuario" id="nombre" placeholder="Escribe tu usuario" class='Entrada'/><br><br>
-                <input type="text" name="pass" id="nombre" placeholder="Escribe tu password" class='Entrada'/><br><br>
+                <input type="password" name="pass" id="nombre" placeholder="Escribe tu password" class='Entrada'/><br><br>
                 <input type="button" class='boton' value="Iniciar sesion"onclick="validacion(); ">
                 <br><br>
                 <input type="button" class='boton' value="Crear cuenta" onclick="gotousuario();">

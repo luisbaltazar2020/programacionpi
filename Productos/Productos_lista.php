@@ -213,9 +213,18 @@
             <input type="button" class='botonp' value="Productos" onclick="productos();">
             </div>
 
-            <div class='baners'>
-            <input type="button" class='botoni' value="Baners" onclick="baners();">
-            </div>
+            <?php
+            if($_SESSION['rol']==1){
+                echo" <div class='baners'>
+                <input type='button' class='botoni' value='Baners' onclick='baners();'>
+                </div>";
+            }
+            else{
+                echo" <div class='baners'>
+                <input type='button' class='botoni'>
+                </div>";
+            }
+            ?>
 
             <div clasS='pedidos'>
             <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
@@ -227,7 +236,12 @@
             <input type="button" class='boton' value="Cerrar sesion" onclick="cerrarsesion();">
             </div>
         </div><br>
-        <button onclick="window.location.href='Productos_alta.php'">Crear nuevo producto</button><br><br>
+        <?php
+            if($_SESSION['rol']==1){
+                echo" <button onclick='window.location.href='Productos_alta.php''>Crear nuevo producto</button><br><br>";
+            }
+            ?>
+        
         <div class="Tabla">
             <div class="titulo">Listado de Productos</div>
             <?php
@@ -250,13 +264,18 @@
                     echo"<div class='correo'>$codigo</div>";
                     echo"<div class='rol'>$costo</div>";
                     echo"<div class='boton'>";
-                    echo"<input onclick='eliminarfila($id);' type='submit' value='Eliminar'/>";
+                    if($_SESSION['rol']==1){
+                        echo"<input onclick='eliminarfila($id);' type='submit' value='Eliminar'/>";
+                    }
+                    
                     echo"</div>";
                     echo"<div class='boton'>";
                     echo"<input onclick='detalle($id);' type='submit' value='Ver detalle'/>";
                     echo"</div>";
                     echo"<div class='boton'>";
-                    echo"<input onclick='editar($id);' type='submit' value='Editar'/>";
+                    if($_SESSION['rol']==1){
+                        echo"<input onclick='editar($id);' type='submit' value='Editar'/>";
+                    }
                     echo"</div>";
                     echo "</div>";
                     $cont++;

@@ -165,18 +165,34 @@
             <div class='Inicio'>
             <input type="button" class='botoni' value="Inicio" onclick="bienvenido();">
             </div>
-
-            <div class='administradores'>
-            <input type="button" class='botona' value="Administradores" onclick="administradores();">
-            </div>
-
+            <?php
+            if($_SESSION['rol']==1){
+                echo" <div class='administradores'>
+            <input type='button' class='botona' value='Administradores' onclick='administradores();'>
+            </div>";
+            }
+            else{
+                echo" <div class='administradores'>
+            <input type='button' class='botona'>
+            </div>";
+            }
+            ?>
             <div class='productos'>
             <input type="button" class='botonp' value="Productos" onclick="productos();">
             </div>
 
-            <div class='baners'>
-            <input type="button" class='botoni' value="Baners" onclick="baners();">
-            </div>
+            <?php
+            if($_SESSION['rol']==1){
+                echo" <div class='baners'>
+                <input type='button' class='botoni' value='Baners' onclick='baners();'>
+                </div>";
+            }
+            else{
+                echo" <div class='baners'>
+                <input type='button' class='botoni'>
+                </div>";
+            }
+            ?>
 
             <div clasS='pedidos'>
             <input type="button" class='botoni' value="Pedidos" onclick="pedidos();">
